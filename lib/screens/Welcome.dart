@@ -1,5 +1,6 @@
 ///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
 
+import 'package:digichat/screens/enterPhone.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -31,7 +32,12 @@ class WelcomeScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.fromLTRB(0, 300, 0, 0),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>  EnterPhone()),
+  );
+                },
                 color: Color(0xffffffff),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
