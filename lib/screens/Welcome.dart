@@ -2,8 +2,11 @@
 
 import 'package:digichat/screens/enterPhone.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WelcomeScreen extends StatelessWidget {
+const WelcomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>  EnterPhone()),
+    MaterialPageRoute(builder: (context) =>  enterPhone()),
   );
                 },
                 color: Color(0xffffffff),

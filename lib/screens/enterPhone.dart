@@ -1,10 +1,25 @@
 ///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
 
+import 'package:digichat/features/authorisation/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final phoneController = TextEditingController();
 
-class EnterPhone extends StatelessWidget {
+
+class enterPhone extends StatefulWidget {
+ const enterPhone({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _enterPhoneState();
+}
+
+class _enterPhoneState extends State<enterPhone> {
+  @override
+  void dispose() {
+    super.dispose();
+    phoneTextFieldEditingController.dispose();
+  }
+  final phoneTextFieldEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,9 +187,9 @@ class EnterPhone extends StatelessWidget {
     );
   }
 
-  void continueController() {
-    //Now here we would be passing the number to the next screen using navigator parameters
-    String phoneNo = phoneController.toString().trim();
+  void continueController() async{
     
+    
+
   }
 }
