@@ -1,19 +1,30 @@
 ///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
 
+// import 'dart:html';
+
+import 'package:digichat/global.dart';
+import 'package:digichat/screens/dummy.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:digichat/commonly_used/utils/utils.dart';
 
-class enterOtpScreen extends ConsumerStatefulWidget {
-  //const enterOtpScreen({super.key});
-  final String verificationId;
 
-  enterOtpScreen(this.verificationId);
+class enterOTPScreen extends StatefulWidget {
+   
+
+   final String phoneNumber;
+
+  const enterOTPScreen({super.key, required this.phoneNumber});
+   
+
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _enterOtpScreenState();
+  State<enterOTPScreen> createState() => _enterOTPScreenState();
 }
 
-class _enterOtpScreenState extends ConsumerState<enterOtpScreen> {
+class _enterOTPScreenState extends State<enterOTPScreen> {
+   String? _verificationCode;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +50,7 @@ class _enterOtpScreenState extends ConsumerState<enterOtpScreen> {
                     borderRadius: BorderRadius.zero,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
                     child: Text(
                       "Verification",
                       textAlign: TextAlign.start,
@@ -82,63 +93,105 @@ class _enterOtpScreenState extends ConsumerState<enterOtpScreen> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(30, 16, 30, 50),
-              child: OtpTextField(
-                numberOfFields: 4,
-                showFieldAsBox: true,
-                fieldWidth: 50,
-                filled: true,
-                fillColor: Color(0x00000000),
-                enabledBorderColor: Color(0xffaaaaaa),
-                focusedBorderColor: Color(0xff3a57e8),
-                borderWidth: 2,
-                margin: EdgeInsets.all(0),
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                obscureText: false,
-                borderRadius: BorderRadius.circular(8.0),
-                textStyle: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 20,
-                  color: Color(0xff000000),
+              child: TextField(
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                  hintText: '- - - - - -',
+                  hintStyle: TextStyle(
+                    fontSize: 30,
+                  ),
                 ),
-                onCodeChanged: (String code) {},
-                onSubmit: (String verificationCode) {},
+                keyboardType: TextInputType.number,
+                onChanged: (val) {
+                  if (val.length == 6) {
+                    //Her calling the function to auto verify the OTP
+                    _verifyPhone();
+                  }
+                },
               ),
             ),
             Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.all(0),
-              padding: EdgeInsets.all(0),
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                color: Color(0xff3a57e8),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.arrow_forward,
-                color: Color(0xffffffff),
-                size: 30,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: Text(
-                "Resend Code",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 16,
-                  color: Color(0xff3a57e8),
+                //   alignment: Alignment.center,
+                //   margin: EdgeInsets.all(0),
+                //   padding: EdgeInsets.all(0),
+                //   width: 70,
+                //   height: 70,
+                //   decoration: BoxDecoration(
+                //     color: Color(0xff3a57e8),
+                //     shape: BoxShape.circle,
+                //   ),
+                //   child: Icon(
+                //     Icons.arrow_forward,
+                //     color: Color(0xffffffff),
+                //     size: 30,
+                //   ),
+
                 ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            //   child: Text(
+            //     "Resend Code",
+            //     textAlign: TextAlign.start,
+            //     overflow: TextOverflow.clip,
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w700,
+            //       fontStyle: FontStyle.normal,
+            //       fontSize: 16,
+            //       color: Color(0xff3a57e8),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
     );
   }
-}
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  
+    
+  
+    _verifyPhone() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: widget.phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((value) async {
+            if (value.user != null) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => dummy()),
+                  (route) => false);
+            }
+          });
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print(e.message);
+        },
+        codeSent: (String? verficationID, int? resendToken) {
+          setState(() {
+            _verificationCode = verficationID;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationID) {
+          setState(() {
+            _verificationCode = verificationID;
+          });
+        },
+        timeout: Duration(seconds: 120));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _verifyPhone();
+  }
+    }
+
+    //showSnackBar(context: context, content: "Please enter all the fields");
+  
+
+

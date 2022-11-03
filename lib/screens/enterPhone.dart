@@ -1,13 +1,14 @@
-///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
-
 import 'package:digichat/features/authorisation/auth_controller.dart';
+import 'package:digichat/global.dart';
+import 'package:digichat/screens/enterOTP.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
+import 'package:digichat/commonly_used/utils/utils.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class enterPhone extends StatefulWidget {
- const enterPhone({Key? key}) : super(key: key);
+  const enterPhone({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _enterPhoneState();
@@ -15,11 +16,12 @@ class enterPhone extends StatefulWidget {
 
 class _enterPhoneState extends State<enterPhone> {
   @override
-  void dispose() {
-    super.dispose();
-    phoneTextFieldEditingController.dispose();
-  }
-  final phoneTextFieldEditingController = TextEditingController();
+  // void dispose() {
+  //   super.dispose();
+  //   phoneTextFieldEditingController.dispose();
+  // }
+
+  final phoneTextFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,16 +75,16 @@ class _enterPhoneState extends State<enterPhone> {
                     Container(
                       padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
                       child: TextField(
-                        controller: TextEditingController(),
-                        obscureText: false,
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18,
-                          color: Color(0xff000000),
-                        ),
+                        controller: phoneTextFieldController,
+                        // obscureText: false,
+                        // textAlign: TextAlign.start,
+                        // maxLines: 1,
+                        // style: TextStyle(
+                        //   fontWeight: FontWeight.w400,
+                        //   fontStyle: FontStyle.normal,
+                        //   fontSize: 18,
+                        //   color: Color(0xff000000),
+                        // ),
                         decoration: InputDecoration(
                           disabledBorder: UnderlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
@@ -162,7 +164,12 @@ class _enterPhoneState extends State<enterPhone> {
           Align(
             alignment: Alignment(0.0, 0.9),
             child: MaterialButton(
-              onPressed: continueController,
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => enterOTPScreen(phoneNumber: phoneTextFieldController.text.toString())),
+                );
+              } ,
               color: Color(0xffffffff),
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -187,9 +194,5 @@ class _enterPhoneState extends State<enterPhone> {
     );
   }
 
-  void continueController() async{
-    
-    
-
-  }
+ 
 }
