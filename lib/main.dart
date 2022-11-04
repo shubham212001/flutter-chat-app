@@ -1,4 +1,6 @@
 import 'package:digichat/screens/Welcome.dart';
+import 'package:digichat/screens/dummy.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:digichat/screens/dummyScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +8,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
 
-Future<void> main() async {
+
+  Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // runApp(MaterialApp(home: ProviderScope(child: WelcomeScreen()),));
-  // runApp(
-  //     MaterialApp(ProviderScope(
-  //     child: WelcomeScreen(),
-  //   ),
-  // ));
-  // runApp(const ProviderScope(child: WelcomeScreen()));
+  
+  if(FirebaseAuth.instance.currentUser!=null){
 
+  runApp(MaterialApp(home: dummy()));
+
+  }else {
+   
   runApp(MaterialApp(home: WelcomeScreen()));
+ 
+  }
+
 }
