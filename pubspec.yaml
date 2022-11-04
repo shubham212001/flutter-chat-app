@@ -47,6 +47,7 @@ dependencies:
   loading_animation: ^0.0.1
   loading_animation_widget: ^1.2.0+3
   center_the_widgets: ^1.0.0+3
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
     - lib/assets/googleLogo.png
     - lib/assets/welcomeImg.png
     - lib/assets/signInWelcomeBack.png
+    - lib/assets/demoProfile_b.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

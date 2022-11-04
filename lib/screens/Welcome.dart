@@ -232,6 +232,7 @@
 
 import 'package:digichat/screens/SignIn/SignInScreen.dart';
 import 'package:digichat/screens/home/homescreen.dart';
+import 'package:digichat/screens/profile/create_new_profile.dart';
 import 'package:flutter/material.dart';
 
 class welcomescr extends StatelessWidget {
@@ -353,7 +354,7 @@ class welcomescr extends StatelessWidget {
                   onPressed: () {
                             Navigator.push(
                            context,
-                           MaterialPageRoute(builder: (context) => home()),
+                           MaterialPageRoute(builder: (context) => AddProfile()),
                          );
 
                   },

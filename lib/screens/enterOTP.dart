@@ -5,6 +5,7 @@
 import 'package:digichat/global.dart';
 import 'package:digichat/screens/Welcome.dart';
 import 'package:digichat/screens/home/homescreen.dart';
+import 'package:digichat/screens/profile/create_new_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -70,7 +71,7 @@ class _enterOTPScreenState extends State<enterOTPScreen> {
             Padding(
               padding: EdgeInsets.all(30),
               child: Text(
-                " We have send you an access code via SMS for Mobile number verifications.",
+                " Relax ! We would automatically detect OTP for you.",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.clip,
                 style: TextStyle(
@@ -163,7 +164,7 @@ class _enterOTPScreenState extends State<enterOTPScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => home()),
+                  MaterialPageRoute(builder: (context) => AddProfile()),
                   (route) => false);
             }
           });
