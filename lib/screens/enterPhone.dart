@@ -165,10 +165,16 @@ class _enterPhoneState extends State<enterPhone> {
             alignment: Alignment(0.0, 0.9),
             child: MaterialButton(
               onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => enterOTPScreen(phoneNumber: phoneTextFieldController.text.toString())),
-                );
+
+                Navigator.pushAndRemoveUntil(
+                context,   
+                MaterialPageRoute(builder: (BuildContext context) => enterOTPScreen(phoneNumber: "+91"+phoneTextFieldController.text.toString())), 
+                ModalRoute.withName('/')
+);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => enterOTPScreen(phoneNumber: "+91"+phoneTextFieldController.text.toString())),
+                // );
               } ,
               color: Color(0xffffffff),
               elevation: 0,
