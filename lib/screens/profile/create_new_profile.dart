@@ -1,5 +1,6 @@
 ///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
 
+import 'package:digichat/commonly_used/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AddProfile extends StatelessWidget {
@@ -38,14 +39,22 @@ class AddProfile extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                    GestureDetector(
+                      onTap: () {
+                       
+
+                       //Image selecting and setting into the 
+                      },
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset("lib/assets/demoProfile_b.png",
+                            fit: BoxFit.cover),
                       ),
-                      child: Image.asset("lib/assets/demoProfile_b.png", fit: BoxFit.cover),
                     ),
                   ],
                 ),

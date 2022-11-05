@@ -1,4 +1,5 @@
 import 'package:digichat/screens/Welcome.dart';
+import 'package:digichat/screens/home/homescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:digichat/screens/dummyScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +14,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  if (FirebaseAuth.instance.currentUser != null) {
+  if (FirebaseAuth.instance.currentUser != null ) {
     runApp(MaterialApp(home: welcomescr()));
   } else {
     runApp(MaterialApp(home: welcomescr()));
