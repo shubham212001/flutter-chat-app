@@ -1,9 +1,24 @@
-///File download from FlutterViz- Drag and drop a tools. For more details visit https://flutterviz.io/
+import 'dart:io';
 
 import 'package:digichat/commonly_used/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:digichat/features/FIrebase_storage/FIrebase_storage.dart';
 
-class AddProfile extends StatelessWidget {
+class AddProfile extends StatefulWidget {
+  const AddProfile({super.key});
+
+  @override
+  State<AddProfile> createState() => _AddProfileState();
+}
+
+class _AddProfileState extends State<AddProfile> {
+  //String profile_image_path = "lib/assets/demoProfile_b.png";
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController about_controller = TextEditingController();
+  File? image;
+  late String name;
+  late String about;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,29 +49,25 @@ class AddProfile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                       
-
-                       //Image selecting and setting into the 
-                      },
-                      child: Container(
-                        height: 120,
-                        width: 120,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+              GestureDetector(
+                onTap: () {
+                  selectImage();
+                },
+                child: Container(
+                  height: 120,
+                  width: 120,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: image == null
+                      ? const CircleAvatar(
+                          backgroundImage: AssetImage(
+                          "lib/assets/demoProfile_b.png",
+                        ))
+                      : CircleAvatar(
+                          backgroundImage: FileImage(image!),
                         ),
-                        child: Image.asset("lib/assets/demoProfile_b.png",
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                  ],
                 ),
               ),
               Padding(
@@ -83,7 +94,7 @@ class AddProfile extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: namecontroller,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -128,7 +139,7 @@ class AddProfile extends StatelessWidget {
                 ),
               ),
               TextField(
-                controller: TextEditingController(),
+                controller: about_controller,
                 obscureText: false,
                 textAlign: TextAlign.start,
                 maxLines: 1,
@@ -172,7 +183,7 @@ class AddProfile extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: IconButton(
                   icon: Icon(Icons.arrow_forward),
-                  onPressed: () {},
+                  onPressed: storeUserData,
                   color: Color(0xff3352ff),
                   iconSize: 35,
                 ),
@@ -182,5 +193,26 @@ class AddProfile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void selectImage() async {
+    image = await pickImageFromGallery(context);
+    showSnackBar(context: context, content: "Image Selected");
+    setState(() {});
+  }
+
+  void storeUserData() async {
+    String name = namecontroller.text.trim();
+    String about = about_controller.text.trim();
+
+    if (name.isNotEmpty & about.isNotEmpty) {
+      saveUserDataToFirebase(
+          name: namecontroller.text.toString(),
+          about: about_controller.text.toString(),
+          profilePic: image,
+          context: context);
+    } else {
+      showSnackBar(context: context, content: "Fill out all fields");
+    }
   }
 }
