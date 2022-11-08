@@ -5,7 +5,7 @@
 import 'package:digichat/global.dart';
 import 'package:digichat/screens/Welcome.dart';
 import 'package:digichat/screens/home/homescreen.dart';
-import 'package:digichat/screens/profile/create_new_profile.dart';
+import 'package:digichat/screens/profile/Add_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';

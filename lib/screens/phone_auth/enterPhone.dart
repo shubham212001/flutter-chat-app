@@ -1,6 +1,6 @@
 import 'package:digichat/features/authorisation/auth_controller.dart';
 import 'package:digichat/global.dart';
-import 'package:digichat/screens/enterOTP.dart';
+import 'package:digichat/screens/phone_auth/enterOTP.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

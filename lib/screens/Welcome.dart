@@ -1,6 +1,6 @@
 import 'package:digichat/screens/SignIn/SignInScreen.dart';
 import 'package:digichat/screens/home/homescreen.dart';
-import 'package:digichat/screens/profile/create_new_profile.dart';
+import 'package:digichat/screens/profile/Add_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
