@@ -15,7 +15,7 @@ Future<void> main() async {
   );
 
   if (FirebaseAuth.instance.currentUser != null ) {
-    runApp(MaterialApp(home: welcomescr()));
+    runApp(MaterialApp(home: home()));
   } else {
     runApp(MaterialApp(home: welcomescr()));
   }

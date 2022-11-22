@@ -49,6 +49,8 @@ dependencies:
   center_the_widgets: ^1.0.0+3
   google_sign_in: ^5.4.2
   image_picker: ^0.8.6
+  flutter_contacts: ^1.1.5+1
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
